@@ -64,10 +64,10 @@ function SpecCard({ spec }) {
       }}
     >
       <div style={{
-        background: 'rgba(10, 10, 10, 0.55)',
+        background: 'rgba(10,10,10,0.55)',
         backdropFilter: 'blur(32px)',
         WebkitBackdropFilter: 'blur(32px)',
-        border: '1px solid rgba(255, 255, 255, 0.08)',
+        border: '1px solid rgba(255,255,255,0.08)',
         borderRadius: 12,
         overflow: 'hidden',
       }}>
@@ -179,8 +179,9 @@ function Timeline({ progress }) {
 // ─── Main Component ────────────────────────────────────────────────────────────
 export default function BuildScroll() {
   const sectionRef = useRef()
-  const canvasRef = useRef()
   const videoRef = useRef()
+  const rafRef = useRef(null)
+  const pendingTimeRef = useRef(0)
   const [isReady, setIsReady] = useState(false)
   const [visibleCard, setVisibleCard] = useState(-1)
   const [progress, setProgress] = useState(0)
@@ -190,71 +191,36 @@ export default function BuildScroll() {
     offset: ['start start', 'end end'],
   })
 
-  // ── Draw current video frame to canvas
-  const triggerDraw = useCallback(() => {
+  // ── RAF-throttled seek: batches scroll events to one seek per animation frame
+  const doSeek = useCallback(() => {
     const video = videoRef.current
-    const canvas = canvasRef.current
-    if (!video || !canvas) return
-
-    const ctx = canvas.getContext('2d', { alpha: false })
-    const dpr = window.devicePixelRatio || 1
-    const cw = canvas.clientWidth
-    const ch = canvas.clientHeight
-
-    if (canvas.width !== cw * dpr || canvas.height !== ch * dpr) {
-      canvas.width = cw * dpr
-      canvas.height = ch * dpr
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0)
-    }
-
-    const fw = video.videoWidth
-    const fh = video.videoHeight
-    if (!fw || !fh) return
-
-    const fRatio = fw / fh
-    const cRatio = cw / ch
-    let sx, sy, sw, sh
-    if (cRatio > fRatio) {
-      sw = fw; sh = fw / cRatio; sx = 0; sy = (fh - sh) / 2
-    } else {
-      sh = fh; sw = fh * cRatio; sx = (fw - sw) / 2; sy = 0
-    }
-    ctx.drawImage(video, sx, sy, sw, sh, 0, 0, cw, ch)
+    if (video) video.currentTime = pendingTimeRef.current
+    rafRef.current = null
   }, [])
 
-  // ── Setup video: mark ready and draw frame 0 on canplay
-  useEffect(() => {
-    const video = videoRef.current
-    if (!video) return
-    const onCanPlay = () => {
-      setIsReady(true)
-      triggerDraw()
-    }
-    video.addEventListener('canplay', onCanPlay)
-    return () => video.removeEventListener('canplay', onCanPlay)
-  }, [triggerDraw])
-
-  // ── Scroll: seek video then redraw on seeked
+  // ── Scroll: update pending time, schedule seek on next RAF tick
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
     setProgress(p)
 
     const video = videoRef.current
-    if (video && video.duration) {
-      // Overwrite onseeked each time — only the latest seek triggers a draw
-      video.onseeked = triggerDraw
-      video.currentTime = p * video.duration
+    if (video?.duration) {
+      pendingTimeRef.current = p * video.duration
+      // Only schedule if not already pending — prevents seek flood
+      if (!rafRef.current) {
+        rafRef.current = requestAnimationFrame(doSeek)
+      }
     }
 
     const active = SPECS.findIndex(s => p >= s.show && p < s.hide)
     setVisibleCard(active)
   })
 
-  // ── Resize: redraw at new dimensions
+  // ── Cleanup pending RAF on unmount
   useEffect(() => {
-    const onResize = () => triggerDraw()
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
-  }, [triggerDraw])
+    return () => {
+      if (rafRef.current) cancelAnimationFrame(rafRef.current)
+    }
+  }, [])
 
   return (
     <section
@@ -268,28 +234,24 @@ export default function BuildScroll() {
         background: '#080808',
       }}>
 
-        {/* Hidden video source */}
+        {/* ── Video element — GPU-composited, no canvas roundtrip ── */}
         <video
           ref={videoRef}
           src="/f1_seekable.mp4"
           muted
           playsInline
           preload="auto"
-          style={{ display: 'none' }}
-        />
-
-        {/* Canvas */}
-        <canvas
-          ref={canvasRef}
+          onCanPlay={() => setIsReady(true)}
           style={{
             position: 'absolute', inset: 0,
             width: '100%', height: '100%',
+            objectFit: 'cover',
             opacity: isReady ? 1 : 0,
             transition: 'opacity 0.6s ease',
           }}
         />
 
-        {/* Loading state */}
+        {/* ── Loading state ── */}
         {!isReady && (
           <div style={{
             position: 'absolute', inset: 0,
@@ -313,7 +275,7 @@ export default function BuildScroll() {
           </div>
         )}
 
-        {/* Vignette */}
+        {/* ── Vignette overlay ── */}
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
           background: `
@@ -322,7 +284,7 @@ export default function BuildScroll() {
           `,
         }} />
 
-        {/* Top label */}
+        {/* ── Top label ── */}
         <div style={{
           position: 'absolute', top: 32, left: 'clamp(16px, 4vw, 60px)',
           zIndex: 20, pointerEvents: 'none',
@@ -336,7 +298,7 @@ export default function BuildScroll() {
           </p>
         </div>
 
-        {/* Scroll progress bar */}
+        {/* ── Scroll progress bar ── */}
         <motion.div
           style={{
             position: 'absolute', top: 0, left: 0, right: 0, height: 2,
@@ -345,17 +307,17 @@ export default function BuildScroll() {
           }}
         />
 
-        {/* Spec cards */}
+        {/* ── Spec cards ── */}
         <AnimatePresence mode="wait">
           {visibleCard >= 0 && (
             <SpecCard key={visibleCard} spec={SPECS[visibleCard]} />
           )}
         </AnimatePresence>
 
-        {/* Timeline */}
+        {/* ── Timeline ── */}
         <Timeline progress={progress} />
 
-        {/* Scroll hint */}
+        {/* ── Scroll hint ── */}
         <motion.div
           animate={{ opacity: progress < 0.04 ? 1 : 0 }}
           transition={{ duration: 0.4 }}
