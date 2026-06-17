@@ -1,7 +1,6 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion'
 
-// ─── Config ───────────────────────────────────────────────────────────────────
 const SPECS = [
   {
     show: 0.05, hide: 0.28, side: 'left',
@@ -45,78 +44,77 @@ const SPECS = [
   },
 ]
 
-// ─── Spec Card ─────────────────────────────────────────────────────────────────
 function SpecCard({ spec }) {
   const isLeft = spec.side === 'left'
   return (
     <motion.div
-      initial={{ opacity: 0, x: isLeft ? -40 : 40 }}
+      initial={{ opacity: 0, x: isLeft ? -32 : 32 }}
       animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: isLeft ? -20 : 20 }}
-      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      exit={{ opacity: 0, x: isLeft ? -16 : 16 }}
+      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'absolute',
         bottom: '10vh',
         [isLeft ? 'left' : 'right']: 'clamp(16px, 4vw, 60px)',
-        width: 'clamp(260px, 28vw, 360px)',
+        width: 'clamp(260px, 26vw, 340px)',
         zIndex: 20,
         pointerEvents: 'none',
       }}
     >
+      {/* Heart Aerospace editorial card: sharp, cloud bg on dark video */}
       <div style={{
-        background: 'rgba(10,10,10,0.55)',
-        backdropFilter: 'blur(32px)',
-        WebkitBackdropFilter: 'blur(32px)',
-        border: '1px solid rgba(255,255,255,0.08)',
-        borderRadius: 12,
+        background: 'rgba(255,255,255,0.97)',
+        borderRadius: 0,
         overflow: 'hidden',
+        borderLeft: isLeft ? '2px solid #001489' : 'none',
+        borderRight: !isLeft ? '2px solid #001489' : 'none',
       }}>
-        <div style={{ height: 3, background: 'linear-gradient(90deg, #DC0000, #ff4040)' }} />
+        <div style={{ height: 2, background: '#001489' }} />
         <div style={{ padding: '20px 24px 24px' }}>
           <p style={{
             fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '0.6rem', letterSpacing: '3px',
-            textTransform: 'uppercase', color: '#DC0000', marginBottom: 10,
+            fontSize: '0.58rem', letterSpacing: '3px',
+            textTransform: 'uppercase', color: '#001489', marginBottom: 10,
           }}>
             {spec.label}
           </p>
           <h3 style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: 'clamp(1.1rem, 2vw, 1.4rem)', fontWeight: 700,
-            letterSpacing: '-0.02em', textTransform: 'uppercase',
-            color: '#ffffff', marginBottom: 10,
+            fontSize: 'clamp(1.1rem, 2vw, 1.35rem)', fontWeight: 700,
+            letterSpacing: '-0.02em',
+            color: '#000000', marginBottom: 10,
           }}>
             {spec.title}
           </h3>
           <p style={{
-            fontFamily: "'Archivo', sans-serif",
-            fontSize: '0.8rem', color: 'rgba(255,255,255,0.5)',
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '0.8rem', color: 'rgba(0,0,0,0.5)',
             lineHeight: 1.7, marginBottom: 20,
           }}>
             {spec.desc}
           </p>
           <div style={{
             display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12,
-            borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 16,
+            borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: 16,
           }}>
             {spec.stats.map((s, i) => (
               <div key={i}>
                 <div style={{
                   fontFamily: "'Space Grotesk', sans-serif",
-                  fontSize: 'clamp(1.4rem, 2.5vw, 1.8rem)', fontWeight: 700,
-                  color: '#ffffff', lineHeight: 1, letterSpacing: '-0.03em',
+                  fontSize: 'clamp(1.3rem, 2.2vw, 1.7rem)', fontWeight: 700,
+                  color: '#000000', lineHeight: 1, letterSpacing: '-0.03em',
                 }}>
                   {s.val}
                   {s.unit && (
-                    <span style={{ fontSize: '0.65em', color: '#DC0000', marginLeft: 2 }}>
+                    <span style={{ fontSize: '0.6em', color: '#001489', marginLeft: 2 }}>
                       {s.unit}
                     </span>
                   )}
                 </div>
                 <div style={{
                   fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: '0.55rem', letterSpacing: '1.5px',
-                  textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)',
+                  fontSize: '0.52rem', letterSpacing: '1.5px',
+                  textTransform: 'uppercase', color: 'rgba(0,0,0,0.35)',
                   marginTop: 4,
                 }}>
                   {s.label}
@@ -130,7 +128,6 @@ function SpecCard({ spec }) {
   )
 }
 
-// ─── Progress Timeline ─────────────────────────────────────────────────────────
 function Timeline({ progress }) {
   return (
     <div style={{
@@ -141,9 +138,7 @@ function Timeline({ progress }) {
       gap: 0, zIndex: 20,
     }}>
       {SPECS.map((spec, i) => {
-        const segStart = spec.show
-        const segEnd = spec.hide
-        const segProgress = Math.max(0, Math.min(1, (progress - segStart) / (segEnd - segStart)))
+        const segProgress = Math.max(0, Math.min(1, (progress - spec.show) / (spec.hide - spec.show)))
         const isActive = progress >= spec.show && progress < spec.hide
         const isPast = progress >= spec.hide
 
@@ -151,19 +146,19 @@ function Timeline({ progress }) {
           <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <motion.div
               animate={{
-                scale: isActive ? 1.4 : 1,
-                backgroundColor: isPast || isActive ? '#DC0000' : 'rgba(255,255,255,0.2)',
-                boxShadow: isActive ? '0 0 0 4px rgba(220,0,0,0.2)' : '0 0 0 0px rgba(220,0,0,0)',
+                scale: isActive ? 1.5 : 1,
+                backgroundColor: isPast || isActive ? '#001489' : 'rgba(255,255,255,0.25)',
+                boxShadow: isActive ? '0 0 0 3px rgba(0,20,137,0.25)' : '0 0 0 0px rgba(0,20,137,0)',
               }}
-              transition={{ duration: 0.35 }}
-              style={{ width: 7, height: 7, borderRadius: '50%', flexShrink: 0 }}
+              transition={{ duration: 0.3 }}
+              style={{ width: 6, height: 6, borderRadius: '50%', flexShrink: 0 }}
             />
             {i < SPECS.length - 1 && (
-              <div style={{ width: 1.5, height: 40, background: 'rgba(255,255,255,0.1)', position: 'relative', margin: '4px 0' }}>
+              <div style={{ width: 1, height: 40, background: 'rgba(255,255,255,0.12)', position: 'relative', margin: '4px 0' }}>
                 <motion.div
                   style={{
                     position: 'absolute', top: 0, left: 0, right: 0,
-                    background: '#DC0000',
+                    background: '#001489',
                     height: `${isActive ? segProgress * 100 : isPast ? 100 : 0}%`,
                   }}
                 />
@@ -176,7 +171,6 @@ function Timeline({ progress }) {
   )
 }
 
-// ─── Main Component ────────────────────────────────────────────────────────────
 export default function BuildScroll() {
   const sectionRef = useRef()
   const videoRef = useRef()
@@ -191,21 +185,18 @@ export default function BuildScroll() {
     offset: ['start start', 'end end'],
   })
 
-  // ── RAF-throttled seek: batches scroll events to one seek per animation frame
   const doSeek = useCallback(() => {
     const video = videoRef.current
     if (video) video.currentTime = pendingTimeRef.current
     rafRef.current = null
   }, [])
 
-  // ── Scroll: update pending time, schedule seek on next RAF tick
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
     setProgress(p)
 
     const video = videoRef.current
     if (video?.duration) {
       pendingTimeRef.current = p * video.duration
-      // Only schedule if not already pending — prevents seek flood
       if (!rafRef.current) {
         rafRef.current = requestAnimationFrame(doSeek)
       }
@@ -215,7 +206,6 @@ export default function BuildScroll() {
     setVisibleCard(active)
   })
 
-  // ── Cleanup pending RAF on unmount
   useEffect(() => {
     return () => {
       if (rafRef.current) cancelAnimationFrame(rafRef.current)
@@ -231,10 +221,9 @@ export default function BuildScroll() {
       <div style={{
         position: 'sticky', top: 0,
         height: '100vh', width: '100%', overflow: 'hidden',
-        background: '#080808',
+        background: '#0a0a0a',
       }}>
 
-        {/* ── Video element — GPU-composited, no canvas roundtrip ── */}
         <video
           ref={videoRef}
           src="/f1_seekable.mp4"
@@ -251,18 +240,17 @@ export default function BuildScroll() {
           }}
         />
 
-        {/* ── Loading state ── */}
         {!isReady && (
           <div style={{
             position: 'absolute', inset: 0,
             display: 'flex', flexDirection: 'column',
             alignItems: 'center', justifyContent: 'center',
-            background: '#080808', zIndex: 5,
+            background: '#0a0a0a', zIndex: 5,
           }}>
             <p style={{
               fontFamily: "'JetBrains Mono', monospace",
-              fontSize: '0.65rem', letterSpacing: '3px',
-              textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)',
+              fontSize: '0.62rem', letterSpacing: '3px',
+              textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)',
               marginBottom: 20,
             }}>
               Loading
@@ -270,54 +258,51 @@ export default function BuildScroll() {
             <motion.div
               animate={{ scaleX: [0, 1] }}
               transition={{ duration: 1.5, ease: 'easeInOut', repeat: Infinity }}
-              style={{ width: 180, height: 1.5, background: '#DC0000', borderRadius: 2, originX: 0 }}
+              style={{ width: 180, height: 1, background: '#001489', originX: 0 }}
             />
           </div>
         )}
 
-        {/* ── Vignette overlay ── */}
+        {/* Vignette */}
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
           background: `
-            radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, rgba(8,8,8,0.6) 100%),
-            linear-gradient(to bottom, rgba(8,8,8,0.4) 0%, transparent 15%, transparent 75%, rgba(8,8,8,0.8) 100%)
+            radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, rgba(0,0,0,0.5) 100%),
+            linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 15%, transparent 78%, rgba(0,0,0,0.7) 100%)
           `,
         }} />
 
-        {/* ── Top label ── */}
+        {/* Section label */}
         <div style={{
-          position: 'absolute', top: 32, left: 'clamp(16px, 4vw, 60px)',
+          position: 'absolute', top: 28, left: 'clamp(16px, 4vw, 60px)',
           zIndex: 20, pointerEvents: 'none',
         }}>
           <p style={{
             fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '0.6rem', letterSpacing: '3px',
-            textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)',
+            fontSize: '0.58rem', letterSpacing: '3px',
+            textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)',
           }}>
             SF-24 · Anatomy
           </p>
         </div>
 
-        {/* ── Scroll progress bar ── */}
+        {/* Jetstream Blue top progress bar */}
         <motion.div
           style={{
             position: 'absolute', top: 0, left: 0, right: 0, height: 2,
-            background: '#DC0000', transformOrigin: '0 0', zIndex: 30,
+            background: '#001489', transformOrigin: '0 0', zIndex: 30,
             scaleX: scrollYProgress,
           }}
         />
 
-        {/* ── Spec cards ── */}
         <AnimatePresence mode="wait">
           {visibleCard >= 0 && (
             <SpecCard key={visibleCard} spec={SPECS[visibleCard]} />
           )}
         </AnimatePresence>
 
-        {/* ── Timeline ── */}
         <Timeline progress={progress} />
 
-        {/* ── Scroll hint ── */}
         <motion.div
           animate={{ opacity: progress < 0.04 ? 1 : 0 }}
           transition={{ duration: 0.4 }}
@@ -329,15 +314,15 @@ export default function BuildScroll() {
         >
           <p style={{
             fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '0.55rem', letterSpacing: '2.5px',
-            textTransform: 'uppercase', color: 'rgba(255,255,255,0.35)',
+            fontSize: '0.52rem', letterSpacing: '2.5px',
+            textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)',
           }}>
             Scroll to build
           </p>
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ width: 1, height: 24, background: 'rgba(220,0,0,0.6)' }}
+            style={{ width: 1, height: 24, background: 'rgba(0,20,137,0.7)' }}
           />
         </motion.div>
       </div>

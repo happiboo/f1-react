@@ -43,13 +43,12 @@ export default function Cursor() {
           position: 'fixed', top: 0, left: 0,
           x: dotX, y: dotY,
           translateX: '-50%', translateY: '-50%',
-          width: 8, height: 8,
+          width: 6, height: 6,
           borderRadius: '50%',
-          background: '#DC0000',
+          background: '#000000',
           pointerEvents: 'none',
           zIndex: 99999,
           scale,
-          transition: 'scale 0.2s',
         }}
       />
       <motion.div
@@ -57,9 +56,9 @@ export default function Cursor() {
           position: 'fixed', top: 0, left: 0,
           x: sx, y: sy,
           translateX: '-50%', translateY: '-50%',
-          width: 36, height: 36,
+          width: 32, height: 32,
           borderRadius: '50%',
-          border: '1px solid rgba(220,0,0,0.45)',
+          border: '1px solid rgba(0,20,137,0.4)',
           pointerEvents: 'none',
           zIndex: 99998,
           scale: ringScale,

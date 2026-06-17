@@ -11,65 +11,67 @@ export default function Navbar({ ready }) {
   const [scrolled, setScrolled] = useState(false)
   const { scrollY } = useScroll()
 
-  useMotionValueEvent(scrollY, 'change', v => setScrolled(v > 60))
+  useMotionValueEvent(scrollY, 'change', v => setScrolled(v > 80))
 
   return (
     <motion.nav
       initial={{ opacity: 0, y: -12 }}
       animate={ready ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: 0.3 }}
-      style={{ position: 'fixed', top: 14, left: 0, right: 0, zIndex: 1000, padding: '0 20px' }}
+      style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 1000 }}
     >
       <motion.div
         animate={scrolled ? {
-          maxWidth: 860, background: 'rgba(8,8,8,0.80)',
-          backdropFilter: 'blur(28px)', WebkitBackdropFilter: 'blur(28px)',
-          border: '1px solid rgba(255,255,255,0.07)',
-          borderRadius: 100, padding: '10px 28px',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
+          background: 'rgba(255,255,255,0.96)',
+          backdropFilter: 'blur(20px)',
+          WebkitBackdropFilter: 'blur(20px)',
+          borderBottom: '1px solid rgba(0,0,0,0.08)',
         } : {
-          maxWidth: '100%', background: 'transparent',
-          border: '1px solid transparent',
-          borderRadius: 0, padding: '14px 32px',
-          boxShadow: 'none',
+          background: 'transparent',
+          backdropFilter: 'none',
+          WebkitBackdropFilter: 'none',
+          borderBottom: '1px solid transparent',
         }}
-        transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
-        style={{ margin: '0 auto', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+          padding: '18px 40px',
+        }}
       >
-        <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{
-            width: 28, height: 28, background: '#DC0000',
-            borderRadius: 5, display: 'flex', alignItems: 'center',
-            justifyContent: 'center', fontSize: '0.85rem',
-          }}>🐎</div>
+        <a href="#" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <span style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '0.78rem', fontWeight: 700,
             letterSpacing: '3px', textTransform: 'uppercase',
-            color: '#ffffff',
+            color: scrolled ? '#000000' : '#ffffff',
+            transition: 'color 0.35s',
           }}>
-            SCUDERIA <span style={{ color: '#DC0000' }}>FERRARI</span>
+            SCUDERIA FERRARI
           </span>
         </a>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
           {links.map(l => (
             <a key={l.label} href={l.href} style={{
               fontFamily: "'JetBrains Mono', monospace",
-              fontSize: '0.66rem', letterSpacing: '1.5px',
-              textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)',
+              fontSize: '0.65rem', letterSpacing: '1.5px',
+              textTransform: 'uppercase',
+              color: scrolled ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.65)',
               transition: 'color 0.2s',
             }}
-              onMouseEnter={e => e.target.style.color = 'rgba(255,255,255,0.9)'}
-              onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.45)'}
+              onMouseEnter={e => e.target.style.color = scrolled ? '#000000' : '#ffffff'}
+              onMouseLeave={e => e.target.style.color = scrolled ? 'rgba(0,0,0,0.45)' : 'rgba(255,255,255,0.65)'}
             >{l.label}</a>
           ))}
           <a href="#cta" style={{
-            fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: '0.7rem', fontWeight: 600,
-            letterSpacing: '1.5px', textTransform: 'uppercase',
-            background: '#DC0000', color: '#fff',
-            padding: '8px 18px', borderRadius: 100,
+            fontFamily: "'Inter', sans-serif",
+            fontSize: '0.72rem', fontWeight: 500,
+            letterSpacing: '0.5px',
+            border: scrolled ? '1.5px solid #001489' : '1.5px solid rgba(255,255,255,0.6)',
+            color: scrolled ? '#001489' : '#ffffff',
+            padding: '8px 20px',
+            borderRadius: 0,
+            transition: 'border-color 0.35s, color 0.35s',
           }}>Experience</a>
         </div>
       </motion.div>

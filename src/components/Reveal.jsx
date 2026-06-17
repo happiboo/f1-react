@@ -12,58 +12,51 @@ export default function Reveal() {
       minHeight: '100vh',
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       position: 'relative', overflow: 'hidden',
-      background: '#0a0a0a',
+      background: '#000000',
     }}>
-      {/* Red glow — slightly stronger */}
+      {/* Subtle Jetstream Blue ambient glow */}
       <div style={{
-        position: 'absolute', width: 900, height: 900, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(220,0,0,0.22) 0%, transparent 65%)',
+        position: 'absolute', width: 800, height: 800, borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(0,20,137,0.12) 0%, transparent 65%)',
         left: '50%', top: '50%', transform: 'translate(-50%,-50%)',
         pointerEvents: 'none',
       }} />
 
-      <div style={{
-        position: 'absolute', inset: 0, pointerEvents: 'none',
-        backgroundImage:
-          'linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px)',
-        backgroundSize: '60px 60px',
-      }} />
-
-      <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', padding: '80px 32px', width: '100%' }}>
+      <div style={{ position: 'relative', zIndex: 2, textAlign: 'center', padding: '80px 40px', width: '100%' }}>
         <motion.div
-          initial={{ opacity: 0, scale: 0.88, y: 60 }}
+          initial={{ opacity: 0, scale: 0.9, y: 48 }}
           animate={inView ? { opacity: 1, scale: 1, y: 0 } : {}}
-          transition={{ duration: 1.3, ease: [0.16, 1, 0.3, 1] }}
-          style={{ maxWidth: 1080, margin: '0 auto 60px' }}
+          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+          style={{ maxWidth: 1080, margin: '0 auto 56px' }}
         >
           <motion.img
             src="/full.png"
             alt="SF-24 Complete"
             style={{
               width: '100%',
-              filter: 'drop-shadow(0 0 80px rgba(220,0,0,0.35)) drop-shadow(0 40px 100px rgba(0,0,0,0.8))',
+              filter: 'drop-shadow(0 0 60px rgba(0,20,137,0.2)) drop-shadow(0 40px 80px rgba(0,0,0,0.85))',
               y: imgY,
             }}
           />
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 16 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.9, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.9, delay: 0.55, ease: [0.16, 1, 0.3, 1] }}
         >
           <h2 style={{
             fontFamily: "'Space Grotesk', sans-serif",
-            fontSize: 'clamp(2rem,5vw,5rem)',
-            fontWeight: 700, letterSpacing: '-1px', color: '#fff',
+            fontSize: 'clamp(2rem, 5vw, 5rem)',
+            fontWeight: 700, letterSpacing: '-0.02em', color: '#ffffff',
           }}>
-            THE <span style={{ color: '#DC0000' }}>SF-24</span>. COMPLETE.
+            THE SF-24. COMPLETE.
           </h2>
           <p style={{
             fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '0.62rem', letterSpacing: '5px',
-            textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)',
-            marginTop: 14,
+            fontSize: '0.6rem', letterSpacing: '4px',
+            textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)',
+            marginTop: 16,
           }}>Maranello · 2024 · Formula One World Championship</p>
         </motion.div>
       </div>

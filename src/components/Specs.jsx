@@ -30,11 +30,12 @@ function CountUp({ target, sfx, started }) {
 
   return (
     <motion.span
-      animate={counting ? { color: '#DC0000', textShadow: '0 0 28px rgba(220,0,0,0.3)' } : { color: '#ffffff', textShadow: 'none' }}
+      animate={counting ? { color: '#001489' } : { color: '#000000' }}
       transition={{ duration: 0.3 }}
       style={{
         fontFamily: "'Space Grotesk', sans-serif",
-        fontSize: 'clamp(2.8rem,5vw,4rem)', fontWeight: 700, display: 'block', lineHeight: 1,
+        fontSize: 'clamp(2.6rem, 5vw, 4rem)', fontWeight: 700,
+        display: 'block', lineHeight: 1, letterSpacing: '-0.03em',
       }}
     >
       {val >= 1000 ? val.toLocaleString() : val}{sfx}
@@ -48,61 +49,54 @@ export default function Specs() {
 
   return (
     <section id="specs" ref={ref} style={{
-      padding: '140px 32px',
-      background: '#080808',
-      borderTop: '1px solid rgba(255,255,255,0.06)',
-      borderBottom: '1px solid rgba(255,255,255,0.06)',
+      padding: '120px 40px',
+      background: '#ffffff',
+      borderTop: '1px solid rgba(0,0,0,0.06)',
+      borderBottom: '1px solid rgba(0,0,0,0.06)',
     }}>
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
+        initial={{ opacity: 0, y: 16 }}
         animate={inView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.6 }}
-        style={{ textAlign: 'center', marginBottom: 80 }}
+        style={{ marginBottom: 80 }}
       >
         <p style={{
           fontFamily: "'JetBrains Mono', monospace",
-          fontSize: '0.6rem', letterSpacing: '5px',
-          textTransform: 'uppercase', color: '#DC0000',
-          marginBottom: 14, display: 'flex', alignItems: 'center',
-          justifyContent: 'center', gap: 14,
+          fontSize: '0.58rem', letterSpacing: '4px',
+          textTransform: 'uppercase', color: '#001489',
+          marginBottom: 16,
         }}>
-          <span style={{ width: 32, height: 1, background: 'rgba(220,0,0,0.4)', display: 'inline-block' }} />
           By the Numbers
-          <span style={{ width: 32, height: 1, background: 'rgba(220,0,0,0.4)', display: 'inline-block' }} />
         </p>
         <h2 style={{
           fontFamily: "'Space Grotesk', sans-serif",
-          fontSize: 'clamp(2rem,4vw,3.5rem)',
-          fontWeight: 700, letterSpacing: '-1px', color: '#ffffff',
+          fontSize: 'clamp(2rem, 4vw, 3.5rem)',
+          fontWeight: 700, letterSpacing: '-0.02em', color: '#000000',
         }}>Technical Specifications</h2>
       </motion.div>
 
       <div style={{
         display: 'grid', gridTemplateColumns: 'repeat(4,1fr)',
-        gap: 40, maxWidth: 1000, margin: '0 auto',
+        gap: 0, maxWidth: 1040, borderTop: '1px solid rgba(0,0,0,0.08)',
       }}>
         {SPECS.map((s, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 24 }}
+            initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: i * 0.15, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 0.7, delay: i * 0.12, ease: [0.16, 1, 0.3, 1] }}
             style={{
-              textAlign: 'center', position: 'relative',
+              padding: '48px 0 48px',
               paddingRight: i < 3 ? 40 : 0,
+              borderRight: i < 3 ? '1px solid rgba(0,0,0,0.08)' : 'none',
+              paddingLeft: i > 0 ? 40 : 0,
             }}
           >
-            {i < 3 && (
-              <div style={{
-                position: 'absolute', right: 0, top: '15%', bottom: '15%',
-                width: 1, background: 'rgba(255,255,255,0.07)',
-              }} />
-            )}
             <CountUp target={s.target} sfx={s.sfx} started={inView} />
             <span style={{
               fontFamily: "'JetBrains Mono', monospace",
-              fontSize: '0.6rem', letterSpacing: '2px',
-              textTransform: 'uppercase', color: 'rgba(255,255,255,0.40)',
+              fontSize: '0.58rem', letterSpacing: '2px',
+              textTransform: 'uppercase', color: 'rgba(0,0,0,0.38)',
               marginTop: 14, display: 'block',
             }}>{s.label}</span>
           </motion.div>
