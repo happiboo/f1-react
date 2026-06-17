@@ -29,37 +29,35 @@ export default function Loader({ onDone }) {
           transition={{ duration: 0.7, ease: 'easeInOut' }}
           style={{
             position: 'fixed', inset: 0, zIndex: 9999,
-            background: '#fff',
+            background: '#080808',
             display: 'flex', flexDirection: 'column',
             alignItems: 'center', justifyContent: 'center', gap: 24,
           }}
         >
-          {/* Spinning ring */}
           <motion.div
             animate={{ rotate: 360 }}
             transition={{ duration: 1, repeat: Infinity, ease: 'linear' }}
             style={{
               width: 56, height: 56, borderRadius: '50%',
-              border: '2px solid rgba(220,0,0,0.12)',
+              border: '2px solid rgba(255,255,255,0.08)',
               borderTopColor: '#DC0000',
             }}
           />
           <div style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '0.9rem', fontWeight: 700,
-            letterSpacing: '6px', textTransform: 'uppercase', color: '#0a0a0a',
+            letterSpacing: '6px', textTransform: 'uppercase', color: '#ffffff',
           }}>
             SF · 24
           </div>
           <p style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: '0.6rem', letterSpacing: '4px',
-            textTransform: 'uppercase', color: '#9ca3af',
+            textTransform: 'uppercase', color: 'rgba(255,255,255,0.4)',
           }}>
             Assembling the machine
           </p>
-          {/* Progress bar */}
-          <div style={{ width: 160, height: 1, background: '#e5e7eb', borderRadius: 1, overflow: 'hidden' }}>
+          <div style={{ width: 160, height: 1, background: 'rgba(255,255,255,0.08)', borderRadius: 1, overflow: 'hidden' }}>
             <motion.div
               animate={{ width: `${progress}%` }}
               transition={{ ease: 'easeOut', duration: 0.2 }}

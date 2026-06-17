@@ -30,7 +30,7 @@ function CountUp({ target, sfx, started }) {
 
   return (
     <motion.span
-      animate={counting ? { color: '#DC0000', textShadow: '0 0 28px rgba(220,0,0,0.3)' } : { color: '#0a0a0a', textShadow: 'none' }}
+      animate={counting ? { color: '#DC0000', textShadow: '0 0 28px rgba(220,0,0,0.3)' } : { color: '#ffffff', textShadow: 'none' }}
       transition={{ duration: 0.3 }}
       style={{
         fontFamily: "'Space Grotesk', sans-serif",
@@ -49,9 +49,9 @@ export default function Specs() {
   return (
     <section id="specs" ref={ref} style={{
       padding: '140px 32px',
-      background: '#fafafa',
-      borderTop: '1px solid rgba(0,0,0,0.06)',
-      borderBottom: '1px solid rgba(0,0,0,0.06)',
+      background: '#080808',
+      borderTop: '1px solid rgba(255,255,255,0.06)',
+      borderBottom: '1px solid rgba(255,255,255,0.06)',
     }}>
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -73,7 +73,7 @@ export default function Specs() {
         <h2 style={{
           fontFamily: "'Space Grotesk', sans-serif",
           fontSize: 'clamp(2rem,4vw,3.5rem)',
-          fontWeight: 700, letterSpacing: '-1px', color: '#0a0a0a',
+          fontWeight: 700, letterSpacing: '-1px', color: '#ffffff',
         }}>Technical Specifications</h2>
       </motion.div>
 
@@ -95,14 +95,14 @@ export default function Specs() {
             {i < 3 && (
               <div style={{
                 position: 'absolute', right: 0, top: '15%', bottom: '15%',
-                width: 1, background: 'rgba(0,0,0,0.08)',
+                width: 1, background: 'rgba(255,255,255,0.07)',
               }} />
             )}
             <CountUp target={s.target} sfx={s.sfx} started={inView} />
             <span style={{
               fontFamily: "'JetBrains Mono', monospace",
               fontSize: '0.6rem', letterSpacing: '2px',
-              textTransform: 'uppercase', color: '#9ca3af',
+              textTransform: 'uppercase', color: 'rgba(255,255,255,0.40)',
               marginTop: 14, display: 'block',
             }}>{s.label}</span>
           </motion.div>

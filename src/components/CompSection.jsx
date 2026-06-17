@@ -28,7 +28,9 @@ export default function CompSection({ id, tag, title, body, stats, img, imgSide 
         style={{
           width: '100%', maxWidth: 580,
           borderRadius: 8,
-          filter: accent ? `drop-shadow(0 24px 56px rgba(220,0,0,0.16))` : `drop-shadow(0 24px 56px rgba(0,0,0,0.14))`,
+          filter: accent
+            ? 'drop-shadow(0 24px 56px rgba(220,0,0,0.22))'
+            : 'drop-shadow(0 24px 56px rgba(0,0,0,0.5))',
           transformStyle: 'preserve-3d',
         }}
         whileHover={{ rotateY: imgSide === 'left' ? 4 : -4, rotateX: -2 }}
@@ -59,30 +61,30 @@ export default function CompSection({ id, tag, title, body, stats, img, imgSide 
               fontFamily: "'Space Grotesk', sans-serif",
               fontSize: 'clamp(2.4rem, 4vw, 4.2rem)',
               fontWeight: 700, letterSpacing: '-1px', lineHeight: 1.04,
-              color: '#0a0a0a',
+              color: '#ffffff',
             }}>{line}</motion.h2>
           </div>
         ))}
       </div>
 
       <motion.p variants={fadeUp} style={{
-        fontSize: '0.97rem', color: '#6b7280',
+        fontSize: '0.97rem', color: 'rgba(255,255,255,0.50)',
         lineHeight: 1.85, maxWidth: 450, marginBottom: 40,
       }}>{body}</motion.p>
 
       <motion.div variants={stagger} style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
         {stats.map((s, i) => (
           <motion.div key={i} variants={fadeUp} style={{
-            borderLeft: '2px solid rgba(220,0,0,0.25)', paddingLeft: 14,
+            borderLeft: '2px solid rgba(220,0,0,0.30)', paddingLeft: 14,
           }}>
             <span style={{
               fontFamily: "'Space Grotesk', sans-serif",
-              fontSize: '1.75rem', fontWeight: 700, display: 'block', lineHeight: 1.1, color: '#0a0a0a',
+              fontSize: '1.75rem', fontWeight: 700, display: 'block', lineHeight: 1.1, color: '#ffffff',
             }}>{s.val}</span>
             <span style={{
               fontFamily: "'JetBrains Mono', monospace",
               fontSize: '0.58rem', letterSpacing: '1.5px', textTransform: 'uppercase',
-              color: '#9ca3af', marginTop: 4, display: 'block',
+              color: 'rgba(255,255,255,0.35)', marginTop: 4, display: 'block',
             }}>{s.label}</span>
           </motion.div>
         ))}
@@ -102,16 +104,15 @@ export default function CompSection({ id, tag, title, body, stats, img, imgSide 
         flexDirection: imgSide === 'left' ? 'row' : 'row-reverse',
         position: 'relative', overflow: 'hidden',
         padding: '80px 0',
-        background: '#fff',
+        background: '#080808',
       }}
     >
-      {/* Subtle glow */}
       <div style={{
         position: 'absolute',
         [imgSide === 'left' ? 'right' : 'left']: '-15%',
         top: '50%', transform: 'translateY(-50%)',
         width: 500, height: 500, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(220,0,0,0.04) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(220,0,0,0.06) 0%, transparent 70%)',
         pointerEvents: 'none',
       }} />
 

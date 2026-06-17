@@ -14,15 +14,14 @@ export default function Reveal() {
       position: 'relative', overflow: 'hidden',
       background: '#0a0a0a',
     }}>
-      {/* Red glow */}
+      {/* Red glow — slightly stronger */}
       <div style={{
         position: 'absolute', width: 900, height: 900, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(220,0,0,0.13) 0%, transparent 65%)',
+        background: 'radial-gradient(circle, rgba(220,0,0,0.22) 0%, transparent 65%)',
         left: '50%', top: '50%', transform: 'translate(-50%,-50%)',
         pointerEvents: 'none',
       }} />
 
-      {/* Subtle grid on dark */}
       <div style={{
         position: 'absolute', inset: 0, pointerEvents: 'none',
         backgroundImage:

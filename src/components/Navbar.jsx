@@ -22,11 +22,11 @@ export default function Navbar({ ready }) {
     >
       <motion.div
         animate={scrolled ? {
-          maxWidth: 860, background: 'rgba(255,255,255,0.82)',
-          backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)',
-          border: '1px solid rgba(0,0,0,0.08)',
+          maxWidth: 860, background: 'rgba(8,8,8,0.80)',
+          backdropFilter: 'blur(28px)', WebkitBackdropFilter: 'blur(28px)',
+          border: '1px solid rgba(255,255,255,0.07)',
           borderRadius: 100, padding: '10px 28px',
-          boxShadow: '0 4px 24px rgba(0,0,0,0.06)',
+          boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
         } : {
           maxWidth: '100%', background: 'transparent',
           border: '1px solid transparent',
@@ -46,21 +46,22 @@ export default function Navbar({ ready }) {
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '0.78rem', fontWeight: 700,
             letterSpacing: '3px', textTransform: 'uppercase',
+            color: '#ffffff',
           }}>
             SCUDERIA <span style={{ color: '#DC0000' }}>FERRARI</span>
           </span>
         </a>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 28 }} className="nav-links">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 28 }}>
           {links.map(l => (
             <a key={l.label} href={l.href} style={{
               fontFamily: "'JetBrains Mono', monospace",
               fontSize: '0.66rem', letterSpacing: '1.5px',
-              textTransform: 'uppercase', color: '#6b7280',
+              textTransform: 'uppercase', color: 'rgba(255,255,255,0.45)',
               transition: 'color 0.2s',
             }}
-              onMouseEnter={e => e.target.style.color = '#0a0a0a'}
-              onMouseLeave={e => e.target.style.color = '#6b7280'}
+              onMouseEnter={e => e.target.style.color = 'rgba(255,255,255,0.9)'}
+              onMouseLeave={e => e.target.style.color = 'rgba(255,255,255,0.45)'}
             >{l.label}</a>
           ))}
           <a href="#cta" style={{

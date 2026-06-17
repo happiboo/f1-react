@@ -8,11 +8,11 @@ export default function CTA() {
   return (
     <section id="cta" ref={ref} style={{
       padding: '160px 32px', textAlign: 'center',
-      position: 'relative', overflow: 'hidden', background: '#fff',
+      position: 'relative', overflow: 'hidden', background: '#080808',
     }}>
       <div style={{
         position: 'absolute', width: 700, height: 700, borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(220,0,0,0.05) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(220,0,0,0.07) 0%, transparent 70%)',
         left: '50%', top: '50%', transform: 'translate(-50%,-50%)',
         pointerEvents: 'none',
       }} />
@@ -42,7 +42,7 @@ export default function CTA() {
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: 'clamp(2.5rem,5.5vw,5.5rem)',
             fontWeight: 700, letterSpacing: '-1.5px',
-            color: '#0a0a0a', marginBottom: 20,
+            color: '#ffffff', marginBottom: 20,
           }}
         >
           Experience the<br /><span style={{ color: '#DC0000' }}>Scuderia</span>
@@ -53,7 +53,7 @@ export default function CTA() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
           style={{
-            fontSize: '1rem', color: '#6b7280',
+            fontSize: '1rem', color: 'rgba(255,255,255,0.55)',
             maxWidth: 440, margin: '0 auto 48px', lineHeight: 1.78,
           }}
         >
