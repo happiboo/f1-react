@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Routes, Route } from 'react-router-dom'
 import Cursor from './components/Cursor'
 import Loader from './components/Loader'
 import Navbar from './components/Navbar'
@@ -11,13 +12,14 @@ import Features from './components/Features'
 import Reveal from './components/Reveal'
 import CTA from './components/CTA'
 import Footer from './components/Footer'
+import LoginPage from './pages/LoginPage'
+import DashboardPage from './pages/DashboardPage'
 
-export default function App() {
+function ShowcasePage() {
   const [ready, setReady] = useState(false)
 
   return (
     <>
-      <Cursor />
       <Loader onDone={() => setReady(true)} />
       <Navbar ready={ready} />
       <Hero ready={ready} />
@@ -61,3 +63,17 @@ export default function App() {
     </>
   )
 }
+
+export default function App() {
+  return (
+    <>
+      <Cursor />
+      <Routes>
+        <Route path="/" element={<ShowcasePage />} />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/dashboard" element={<DashboardPage />} />
+      </Routes>
+    </>
+  )
+}
+

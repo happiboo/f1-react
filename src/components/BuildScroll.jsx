@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from 'react'
+import { useRef, useCallback, useState, useEffect } from 'react'
 import { useScroll, useMotionValueEvent, motion, AnimatePresence } from 'framer-motion'
 
 const SPECS = [
@@ -8,7 +8,7 @@ const SPECS = [
     title: 'The Monocoque',
     desc: 'Carbon fibre survival cell. Machined to 0.1 mm tolerance — lighter than a suitcase, stronger than a vault.',
     stats: [
-      { val: '43', unit: 'kg', label: 'Total Weight' },
+      { val: '43',  unit: 'kg', label: 'Total Weight' },
       { val: '7.5', unit: 'km', label: 'Carbon Fibre' },
     ],
   },
@@ -18,8 +18,8 @@ const SPECS = [
     title: 'Ferrari 066/12',
     desc: '1.6L turbocharged V6 + MGU-K + MGU-H. Over 1,000 combined horsepower. Italian thunder, precisely contained.',
     stats: [
-      { val: '1000+', unit: 'hp', label: 'Combined Output' },
-      { val: '18k', unit: 'rpm', label: 'Redline' },
+      { val: '1000+', unit: 'hp',  label: 'Combined Output' },
+      { val: '18k',   unit: 'rpm', label: 'Redline' },
     ],
   },
   {
@@ -28,8 +28,8 @@ const SPECS = [
     title: 'Born to Slice',
     desc: '1,000+ CFD simulations. Ground-effect venturi tunnels generate 3.5× the car\'s weight in downforce.',
     stats: [
-      { val: '3.5×', unit: '', label: 'Downforce Ratio' },
-      { val: '1000+', unit: '', label: 'CFD Sims' },
+      { val: '3.5×',  unit: '',   label: 'Downforce Ratio' },
+      { val: '1000+', unit: '',   label: 'CFD Sims' },
     ],
   },
   {
@@ -39,7 +39,7 @@ const SPECS = [
     desc: '798 kg of engineering obsession. 0–300 in 8.5 s. A crimson weapon forged in Maranello.',
     stats: [
       { val: '350', unit: 'km/h', label: 'Top Speed' },
-      { val: '798', unit: 'kg', label: 'Total Mass' },
+      { val: '798', unit: 'kg',   label: 'Total Mass' },
     ],
   },
 ]
@@ -48,10 +48,10 @@ function SpecCard({ spec }) {
   const isLeft = spec.side === 'left'
   return (
     <motion.div
-      initial={{ opacity: 0, x: isLeft ? -32 : 32 }}
-      animate={{ opacity: 1, x: 0 }}
-      exit={{ opacity: 0, x: isLeft ? -16 : 16 }}
-      transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      initial={{ opacity: 0, x: isLeft ? -40 : 40, filter: 'blur(8px)' }}
+      animate={{ opacity: 1, x: 0, filter: 'blur(0px)' }}
+      exit={{ opacity: 0, x: isLeft ? -20 : 20, filter: 'blur(4px)' }}
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: 'absolute',
         bottom: '10vh',
@@ -61,20 +61,20 @@ function SpecCard({ spec }) {
         pointerEvents: 'none',
       }}
     >
-      {/* Heart Aerospace editorial card: sharp, cloud bg on dark video */}
       <div style={{
-        background: 'rgba(255,255,255,0.97)',
+        background: 'rgba(10,10,10,0.96)',
         borderRadius: 0,
         overflow: 'hidden',
-        borderLeft: isLeft ? '2px solid #001489' : 'none',
-        borderRight: !isLeft ? '2px solid #001489' : 'none',
+        borderLeft:  isLeft  ? '2px solid #DC0000' : 'none',
+        borderRight: !isLeft ? '2px solid #DC0000' : 'none',
+        backdropFilter: 'blur(12px)',
       }}>
-        <div style={{ height: 2, background: '#001489' }} />
+        <div style={{ height: 2, background: '#DC0000' }} />
         <div style={{ padding: '20px 24px 24px' }}>
           <p style={{
             fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '0.58rem', letterSpacing: '3px',
-            textTransform: 'uppercase', color: '#001489', marginBottom: 10,
+            fontSize: '0.56rem', letterSpacing: '3px',
+            textTransform: 'uppercase', color: '#DC0000', marginBottom: 10,
           }}>
             {spec.label}
           </p>
@@ -82,39 +82,39 @@ function SpecCard({ spec }) {
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: 'clamp(1.1rem, 2vw, 1.35rem)', fontWeight: 700,
             letterSpacing: '-0.02em',
-            color: '#000000', marginBottom: 10,
+            color: '#ffffff', marginBottom: 10,
           }}>
             {spec.title}
           </h3>
           <p style={{
             fontFamily: "'Inter', sans-serif",
-            fontSize: '0.8rem', color: 'rgba(0,0,0,0.5)',
+            fontSize: '0.8rem', color: 'rgba(255,255,255,0.45)',
             lineHeight: 1.7, marginBottom: 20,
           }}>
             {spec.desc}
           </p>
           <div style={{
             display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12,
-            borderTop: '1px solid rgba(0,0,0,0.08)', paddingTop: 16,
+            borderTop: '1px solid rgba(255,255,255,0.07)', paddingTop: 16,
           }}>
             {spec.stats.map((s, i) => (
               <div key={i}>
                 <div style={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: 'clamp(1.3rem, 2.2vw, 1.7rem)', fontWeight: 700,
-                  color: '#000000', lineHeight: 1, letterSpacing: '-0.03em',
+                  color: '#ffffff', lineHeight: 1, letterSpacing: '-0.03em',
                 }}>
                   {s.val}
                   {s.unit && (
-                    <span style={{ fontSize: '0.6em', color: '#001489', marginLeft: 2 }}>
+                    <span style={{ fontSize: '0.6em', color: '#DC0000', marginLeft: 2 }}>
                       {s.unit}
                     </span>
                   )}
                 </div>
                 <div style={{
                   fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: '0.52rem', letterSpacing: '1.5px',
-                  textTransform: 'uppercase', color: 'rgba(0,0,0,0.35)',
+                  fontSize: '0.5rem', letterSpacing: '1.5px',
+                  textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)',
                   marginTop: 4,
                 }}>
                   {s.label}
@@ -140,25 +140,25 @@ function Timeline({ progress }) {
       {SPECS.map((spec, i) => {
         const segProgress = Math.max(0, Math.min(1, (progress - spec.show) / (spec.hide - spec.show)))
         const isActive = progress >= spec.show && progress < spec.hide
-        const isPast = progress >= spec.hide
+        const isPast   = progress >= spec.hide
 
         return (
           <div key={i} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <motion.div
               animate={{
-                scale: isActive ? 1.5 : 1,
-                backgroundColor: isPast || isActive ? '#001489' : 'rgba(255,255,255,0.25)',
-                boxShadow: isActive ? '0 0 0 3px rgba(0,20,137,0.25)' : '0 0 0 0px rgba(0,20,137,0)',
+                scale: isActive ? 1.6 : 1,
+                backgroundColor: isPast || isActive ? '#DC0000' : 'rgba(255,255,255,0.2)',
+                boxShadow: isActive ? '0 0 0 4px rgba(220,0,0,0.2)' : '0 0 0 0px rgba(220,0,0,0)',
               }}
               transition={{ duration: 0.3 }}
               style={{ width: 6, height: 6, borderRadius: '50%', flexShrink: 0 }}
             />
             {i < SPECS.length - 1 && (
-              <div style={{ width: 1, height: 40, background: 'rgba(255,255,255,0.12)', position: 'relative', margin: '4px 0' }}>
+              <div style={{ width: 1, height: 40, background: 'rgba(255,255,255,0.1)', position: 'relative', margin: '4px 0' }}>
                 <motion.div
                   style={{
                     position: 'absolute', top: 0, left: 0, right: 0,
-                    background: '#001489',
+                    background: '#DC0000',
                     height: `${isActive ? segProgress * 100 : isPast ? 100 : 0}%`,
                   }}
                 />
@@ -172,13 +172,13 @@ function Timeline({ progress }) {
 }
 
 export default function BuildScroll() {
-  const sectionRef = useRef()
-  const videoRef = useRef()
-  const rafRef = useRef(null)
+  const sectionRef    = useRef()
+  const videoRef      = useRef()
+  const rafRef        = useRef(null)
   const pendingTimeRef = useRef(0)
-  const [isReady, setIsReady] = useState(false)
+  const [isReady, setIsReady]       = useState(false)
   const [visibleCard, setVisibleCard] = useState(-1)
-  const [progress, setProgress] = useState(0)
+  const [progress, setProgress]     = useState(0)
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -193,7 +193,6 @@ export default function BuildScroll() {
 
   useMotionValueEvent(scrollYProgress, 'change', (p) => {
     setProgress(p)
-
     const video = videoRef.current
     if (video?.duration) {
       pendingTimeRef.current = p * video.duration
@@ -201,35 +200,25 @@ export default function BuildScroll() {
         rafRef.current = requestAnimationFrame(doSeek)
       }
     }
-
     const active = SPECS.findIndex(s => p >= s.show && p < s.hide)
     setVisibleCard(active)
   })
 
   useEffect(() => {
-    return () => {
-      if (rafRef.current) cancelAnimationFrame(rafRef.current)
-    }
+    return () => { if (rafRef.current) cancelAnimationFrame(rafRef.current) }
   }, [])
 
   return (
-    <section
-      id="build"
-      ref={sectionRef}
-      style={{ height: '520vh', position: 'relative' }}
-    >
+    <section id="build" ref={sectionRef} style={{ height: '520vh', position: 'relative' }}>
       <div style={{
         position: 'sticky', top: 0,
         height: '100vh', width: '100%', overflow: 'hidden',
-        background: '#0a0a0a',
+        background: '#080808',
       }}>
-
         <video
           ref={videoRef}
           src="/f1_seekable.mp4"
-          muted
-          playsInline
-          preload="auto"
+          muted playsInline preload="auto"
           onCanPlay={() => setIsReady(true)}
           style={{
             position: 'absolute', inset: 0,
@@ -245,20 +234,18 @@ export default function BuildScroll() {
             position: 'absolute', inset: 0,
             display: 'flex', flexDirection: 'column',
             alignItems: 'center', justifyContent: 'center',
-            background: '#0a0a0a', zIndex: 5,
+            background: '#080808', zIndex: 5,
           }}>
             <p style={{
               fontFamily: "'JetBrains Mono', monospace",
-              fontSize: '0.62rem', letterSpacing: '3px',
-              textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)',
+              fontSize: '0.6rem', letterSpacing: '3px',
+              textTransform: 'uppercase', color: 'rgba(255,255,255,0.2)',
               marginBottom: 20,
-            }}>
-              Loading
-            </p>
+            }}>Loading</p>
             <motion.div
               animate={{ scaleX: [0, 1] }}
               transition={{ duration: 1.5, ease: 'easeInOut', repeat: Infinity }}
-              style={{ width: 180, height: 1, background: '#001489', originX: 0 }}
+              style={{ width: 180, height: 1, background: '#DC0000', originX: 0 }}
             />
           </div>
         )}
@@ -267,9 +254,15 @@ export default function BuildScroll() {
         <div style={{
           position: 'absolute', inset: 0, pointerEvents: 'none',
           background: `
-            radial-gradient(ellipse 80% 60% at 50% 50%, transparent 40%, rgba(0,0,0,0.5) 100%),
-            linear-gradient(to bottom, rgba(0,0,0,0.45) 0%, transparent 15%, transparent 78%, rgba(0,0,0,0.7) 100%)
+            radial-gradient(ellipse 80% 60% at 50% 50%, transparent 35%, rgba(0,0,0,0.55) 100%),
+            linear-gradient(to bottom, rgba(0,0,0,0.5) 0%, transparent 18%, transparent 75%, rgba(0,0,0,0.75) 100%)
           `,
+        }} />
+
+        {/* Ferrari red cinematic screen-blend overlay */}
+        <div style={{
+          position: 'absolute', inset: 0, pointerEvents: 'none',
+          background: 'radial-gradient(ellipse 70% 40% at 50% 100%, rgba(220,0,0,0.04) 0%, transparent 70%)',
         }} />
 
         {/* Section label */}
@@ -279,19 +272,21 @@ export default function BuildScroll() {
         }}>
           <p style={{
             fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '0.58rem', letterSpacing: '3px',
-            textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)',
+            fontSize: '0.56rem', letterSpacing: '3px',
+            textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)',
           }}>
             SF-24 · Anatomy
           </p>
         </div>
 
-        {/* Jetstream Blue top progress bar */}
+        {/* Ferrari red top progress bar */}
         <motion.div
           style={{
             position: 'absolute', top: 0, left: 0, right: 0, height: 2,
-            background: '#001489', transformOrigin: '0 0', zIndex: 30,
+            background: '#DC0000',
+            transformOrigin: '0 0', zIndex: 30,
             scaleX: scrollYProgress,
+            boxShadow: '0 0 12px rgba(220,0,0,0.6)',
           }}
         />
 
@@ -303,6 +298,7 @@ export default function BuildScroll() {
 
         <Timeline progress={progress} />
 
+        {/* Scroll hint */}
         <motion.div
           animate={{ opacity: progress < 0.04 ? 1 : 0 }}
           transition={{ duration: 0.4 }}
@@ -314,15 +310,13 @@ export default function BuildScroll() {
         >
           <p style={{
             fontFamily: "'JetBrains Mono', monospace",
-            fontSize: '0.52rem', letterSpacing: '2.5px',
-            textTransform: 'uppercase', color: 'rgba(255,255,255,0.3)',
-          }}>
-            Scroll to build
-          </p>
+            fontSize: '0.5rem', letterSpacing: '2.5px',
+            textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)',
+          }}>Scroll to build</p>
           <motion.div
             animate={{ y: [0, 6, 0] }}
             transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ width: 1, height: 24, background: 'rgba(0,20,137,0.7)' }}
+            style={{ width: 1, height: 24, background: '#DC0000', opacity: 0.6 }}
           />
         </motion.div>
       </div>
