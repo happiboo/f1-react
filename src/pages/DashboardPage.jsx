@@ -12,6 +12,8 @@ import RegistrationForm from '../components/dashboard/RegistrationForm'
 import ModulesTable from '../components/dashboard/ModulesTable'
 import ContactSection from '../components/dashboard/ContactSection'
 import DashFooter from '../components/dashboard/DashFooter'
+import ImageSlider from '../components/dashboard/ImageSlider'
+import ScrollToTop from '../components/dashboard/ScrollToTop'
 
 export default function DashboardPage() {
   const { isAuthenticated, user, logout } = useAuth()
@@ -24,6 +26,7 @@ export default function DashboardPage() {
   const reportsRef = useRef(null)
   const aboutRef = useRef(null)
   const contactRef = useRef(null)
+  const scrollContainerRef = useRef(null)
 
   // Redirect to login if not authenticated
   useEffect(() => {
@@ -62,9 +65,9 @@ export default function DashboardPage() {
 
   return (
     <div style={{
-      background: '#000000',
+      background: 'var(--color-onyx, #000000)',
       minHeight: '100vh',
-      color: '#ffffff',
+      color: 'var(--text-primary, #ffffff)',
       display: 'flex',
       flexDirection: 'column',
     }}>
@@ -81,16 +84,22 @@ export default function DashboardPage() {
         />
 
         {/* Scrollable HUD Dashboard Content */}
-        <main style={{
-          flex: 1,
-          padding: '40px clamp(20px, 4vw, 60px)',
-          height: 'calc(100vh - 81px)',
-          overflowY: 'auto',
-          scrollBehavior: 'smooth',
-          boxSizing: 'border-box'
-        }}>
+        <main 
+          ref={scrollContainerRef}
+          style={{
+            flex: 1,
+            padding: '40px clamp(20px, 4vw, 60px)',
+            height: 'calc(100vh - 81px)',
+            overflowY: 'auto',
+            scrollBehavior: 'smooth',
+            boxSizing: 'border-box'
+          }}
+        >
           {/* Scroll Target: Dashboard */}
           <div ref={dashboardRef} style={{ scrollMarginTop: '20px' }}>
+            {/* Image Slider (New) */}
+            <ImageSlider />
+
             {/* Welcome Message, Desc, Vision, Mission (Section 3) */}
             <WelcomeSection />
 
@@ -128,6 +137,8 @@ export default function DashboardPage() {
           <DashFooter />
         </main>
       </div>
+      
+      <ScrollToTop scrollContainerRef={scrollContainerRef} />
     </div>
   )
 }

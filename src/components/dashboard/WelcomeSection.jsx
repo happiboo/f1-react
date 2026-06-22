@@ -2,12 +2,15 @@ import React from 'react'
 
 export default function WelcomeSection() {
   return (
-    <section style={{
-      display: 'flex',
-      flexDirection: 'column',
-      gap: 24,
-      marginBottom: 40
-    }}>
+    <section 
+      className="anim-fade-in-up"
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 24,
+        marginBottom: 40
+      }}
+    >
       {/* Welcome Banner */}
       <div style={{
         background: 'linear-gradient(135deg, rgba(220, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.3) 100%)',
@@ -30,13 +33,14 @@ export default function WelcomeSection() {
         }}>
           SF24
         </div>
-        <h2 style={{
+        <h2 className="anim-typing" style={{
           fontFamily: "'Space Grotesk', sans-serif",
           fontSize: '2.5rem',
           fontWeight: 600,
           color: '#ffffff',
           marginBottom: 12,
           letterSpacing: '-0.02em',
+          width: 'fit-content'
         }}>
           Welcome to the Scuderia HQ Control Panel.
         </h2>
@@ -58,14 +62,18 @@ export default function WelcomeSection() {
         gap: 20
       }}>
         {/* Description */}
-        <div style={{
-          background: 'rgba(13, 13, 13, 0.8)',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
-          padding: 24,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 12
-        }}>
+        <div 
+          className="anim-slide-in-left card-hover" 
+          style={{
+            animationDelay: '0.2s',
+            background: 'var(--bg-card, rgba(13, 13, 13, 0.8))',
+            border: '1px solid var(--border-light, rgba(255, 255, 255, 0.05))',
+            padding: 24,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12
+          }}
+        >
           <span style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: '0.65rem',
@@ -78,14 +86,14 @@ export default function WelcomeSection() {
           <h3 style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '1.25rem',
-            color: '#ffffff',
+            color: 'var(--text-primary, #ffffff)',
             fontWeight: 500
           }}>
             Integrated Simulation & Telemetry
           </h3>
           <p style={{
             fontFamily: "'Inter', sans-serif",
-            color: 'rgba(255, 255, 255, 0.5)',
+            color: 'var(--text-secondary, rgba(255, 255, 255, 0.5))',
             fontSize: '0.85rem',
             lineHeight: 1.6
           }}>
@@ -94,14 +102,18 @@ export default function WelcomeSection() {
         </div>
 
         {/* Vision */}
-        <div style={{
-          background: 'rgba(13, 13, 13, 0.8)',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
-          padding: 24,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 12
-        }}>
+        <div 
+          className="anim-slide-in-left card-hover" 
+          style={{
+            animationDelay: '0.4s',
+            background: 'var(--bg-card, rgba(13, 13, 13, 0.8))',
+            border: '1px solid var(--border-light, rgba(255, 255, 255, 0.05))',
+            padding: 24,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12
+          }}
+        >
           <span style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: '0.65rem',
@@ -114,14 +126,14 @@ export default function WelcomeSection() {
           <h3 style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '1.25rem',
-            color: '#ffffff',
+            color: 'var(--text-primary, #ffffff)',
             fontWeight: 500
           }}>
             Precision Engineering at Scale
           </h3>
           <p style={{
             fontFamily: "'Inter', sans-serif",
-            color: 'rgba(255, 255, 255, 0.5)',
+            color: 'var(--text-secondary, rgba(255, 255, 255, 0.5))',
             fontSize: '0.85rem',
             lineHeight: 1.6
           }}>
@@ -130,14 +142,18 @@ export default function WelcomeSection() {
         </div>
 
         {/* Mission */}
-        <div style={{
-          background: 'rgba(13, 13, 13, 0.8)',
-          border: '1px solid rgba(255, 255, 255, 0.05)',
-          padding: 24,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 12
-        }}>
+        <div 
+          className="anim-slide-in-left card-hover" 
+          style={{
+            animationDelay: '0.6s',
+            background: 'var(--bg-card, rgba(13, 13, 13, 0.8))',
+            border: '1px solid var(--border-light, rgba(255, 255, 255, 0.05))',
+            padding: 24,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 12
+          }}
+        >
           <span style={{
             fontFamily: "'JetBrains Mono', monospace",
             fontSize: '0.65rem',
@@ -150,14 +166,14 @@ export default function WelcomeSection() {
           <h3 style={{
             fontFamily: "'Space Grotesk', sans-serif",
             fontSize: '1.25rem',
-            color: '#ffffff',
+            color: 'var(--text-primary, #ffffff)',
             fontWeight: 500
           }}>
             Pinnacle of Performance
           </h3>
           <p style={{
             fontFamily: "'Inter', sans-serif",
-            color: 'rgba(255, 255, 255, 0.5)',
+            color: 'var(--text-secondary, rgba(255, 255, 255, 0.5))',
             fontSize: '0.85rem',
             lineHeight: 1.6
           }}>

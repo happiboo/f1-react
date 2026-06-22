@@ -6,6 +6,7 @@ export default function DashNav({ activeTab, setActiveTab, onLogout }) {
     { id: 'dashboard', label: 'Dashboard' },
     { id: 'services', label: 'Services' },
     { id: 'reports', label: 'Reports' },
+    { id: 'features', label: 'Features' },
     { id: 'about', label: 'About' },
     { id: 'contact', label: 'Contact' },
   ]
@@ -13,8 +14,8 @@ export default function DashNav({ activeTab, setActiveTab, onLogout }) {
   return (
     <nav style={{
       width: 260,
-      background: 'rgba(10, 10, 10, 0.95)',
-      borderRight: '1px solid rgba(255, 255, 255, 0.07)',
+      background: 'var(--bg-overlay, rgba(10, 10, 10, 0.95))',
+      borderRight: '1px solid var(--border-light, rgba(255, 255, 255, 0.07))',
       padding: '40px 20px',
       display: 'flex',
       flexDirection: 'column',
@@ -28,7 +29,7 @@ export default function DashNav({ activeTab, setActiveTab, onLogout }) {
         <div style={{
           fontFamily: "'JetBrains Mono', monospace",
           fontSize: '0.6rem',
-          color: 'rgba(255, 255, 255, 0.3)',
+          color: 'var(--text-muted, rgba(255, 255, 255, 0.3))',
           letterSpacing: '2px',
           textTransform: 'uppercase',
           paddingLeft: 12,
@@ -46,16 +47,16 @@ export default function DashNav({ activeTab, setActiveTab, onLogout }) {
           fontFamily: "'Inter', sans-serif",
           fontSize: '0.85rem',
           fontWeight: 500,
-          color: 'rgba(255, 255, 255, 0.6)',
+          color: 'var(--text-secondary, rgba(255, 255, 255, 0.6))',
           transition: 'all 0.2s',
           borderLeft: '2px solid transparent'
         }}
           onMouseEnter={e => {
-            e.currentTarget.style.color = '#ffffff'
-            e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)'
+            e.currentTarget.style.color = 'var(--text-primary, #ffffff)'
+            e.currentTarget.style.background = 'var(--bg-card, rgba(255, 255, 255, 0.02))'
           }}
           onMouseLeave={e => {
-            e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)'
+            e.currentTarget.style.color = 'var(--text-secondary, rgba(255, 255, 255, 0.6))'
             e.currentTarget.style.background = 'transparent'
           }}
         >
@@ -73,7 +74,7 @@ export default function DashNav({ activeTab, setActiveTab, onLogout }) {
                 background: isActive ? 'rgba(220, 0, 0, 0.08)' : 'transparent',
                 border: 'none',
                 borderLeft: isActive ? '2px solid #DC0000' : '2px solid transparent',
-                color: isActive ? '#ffffff' : 'rgba(255, 255, 255, 0.6)',
+                color: isActive ? 'var(--text-primary, #ffffff)' : 'var(--text-secondary, rgba(255, 255, 255, 0.6))',
                 display: 'flex',
                 alignItems: 'center',
                 gap: 12,
@@ -83,27 +84,29 @@ export default function DashNav({ activeTab, setActiveTab, onLogout }) {
                 fontWeight: isActive ? 600 : 500,
                 textAlign: 'left',
                 width: '100%',
-                transition: 'all 0.2s',
+                transition: 'all 0.2s cubic-bezier(0.16, 1, 0.3, 1)',
                 outline: 'none',
-                cursor: 'none'
+                cursor: 'pointer'
               }}
               onMouseEnter={e => {
                 if (!isActive) {
-                  e.currentTarget.style.color = '#ffffff'
-                  e.currentTarget.style.background = 'rgba(255, 255, 255, 0.02)'
+                  e.currentTarget.style.color = 'var(--text-primary, #ffffff)'
+                  e.currentTarget.style.background = 'var(--bg-card, rgba(255, 255, 255, 0.02))'
+                  e.currentTarget.style.borderLeft = '2px solid rgba(220, 0, 0, 0.3)'
                 }
               }}
               onMouseLeave={e => {
                 if (!isActive) {
-                  e.currentTarget.style.color = 'rgba(255, 255, 255, 0.6)'
+                  e.currentTarget.style.color = 'var(--text-secondary, rgba(255, 255, 255, 0.6))'
                   e.currentTarget.style.background = 'transparent'
+                  e.currentTarget.style.borderLeft = '2px solid transparent'
                 }
               }}
             >
               <span style={{
                 fontFamily: "'JetBrains Mono', monospace",
                 fontSize: '0.75rem',
-                color: isActive ? '#DC0000' : 'rgba(255, 255, 255, 0.3)'
+                color: isActive ? '#DC0000' : 'var(--text-muted, rgba(255, 255, 255, 0.3))'
               }}>
                 0{index + 1}.
               </span>
@@ -115,6 +118,7 @@ export default function DashNav({ activeTab, setActiveTab, onLogout }) {
 
       <button
         onClick={onLogout}
+        className="btn-transition"
         style={{
           background: 'transparent',
           border: '1px solid rgba(220, 0, 0, 0.3)',
@@ -130,9 +134,8 @@ export default function DashNav({ activeTab, setActiveTab, onLogout }) {
           letterSpacing: '1px',
           textTransform: 'uppercase',
           width: '100%',
-          transition: 'all 0.2s',
           outline: 'none',
-          cursor: 'none'
+          cursor: 'pointer'
         }}
         onMouseEnter={e => {
           e.currentTarget.style.background = '#DC0000'

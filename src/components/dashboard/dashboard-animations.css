@@ -1,0 +1,223 @@
+/* dashboard-animations.css */
+
+/* KEYFRAMES */
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes bounceIn {
+  0% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.05);
+  }
+  70% {
+    transform: scale(0.9);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-custom {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes typingEffect {
+  from {
+    width: 0;
+  }
+  to {
+    width: 100%;
+  }
+}
+
+@keyframes blinkCursor {
+  from, to { border-color: transparent; }
+  50% { border-color: #DC0000; }
+}
+
+@keyframes rotateIn {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes progressBar {
+  from {
+    width: 0;
+  }
+  to {
+    width: var(--progress, 100%);
+  }
+}
+
+/* UTILITY CLASSES */
+
+.anim-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0; /* Ensures it starts invisible */
+}
+
+.anim-slide-in-left {
+  animation: slideInLeft 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.anim-slide-in-down {
+  animation: slideInDown 0.3s ease-out forwards;
+  opacity: 0;
+}
+
+.anim-bounce-in {
+  animation: bounceIn 0.8s cubic-bezier(0.215, 0.610, 0.355, 1.000) forwards;
+  opacity: 0;
+}
+
+.anim-zoom-in {
+  animation: zoomIn 0.5s ease-out forwards;
+  opacity: 0;
+}
+
+.anim-pulse {
+  animation: pulse-custom 2s infinite ease-in-out;
+}
+
+.anim-typing {
+  overflow: hidden; /* Ensures the content is not revealed until the animation */
+  border-right: .15em solid #DC0000; /* The typwriter cursor */
+  white-space: nowrap; /* Keeps the content on a single line */
+  margin: 0 auto; /* Gives that scrolling effect as the typing happens */
+  letter-spacing: -0.02em; /* Adjust as needed */
+  animation: 
+    typingEffect 3.5s steps(40, end),
+    blinkCursor .75s step-end infinite;
+}
+
+.anim-rotate {
+  animation: rotateIn 1s ease-out forwards;
+}
+
+.progress-bar-fill {
+  animation: progressBar 1s ease-out forwards;
+}
+
+/* HOVER EFFECTS */
+
+.hover-scale {
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+.hover-glow {
+  transition: box-shadow 0.25s ease-out, border-color 0.25s ease-out;
+}
+.hover-glow:hover {
+  box-shadow: 0 0 15px rgba(220, 0, 0, 0.3);
+  border-color: rgba(220, 0, 0, 0.5) !important;
+}
+
+.card-hover {
+  transition: transform 0.25s ease, border-color 0.25s ease, background-color 0.25s ease;
+}
+.card-hover:hover {
+  transform: translateY(-5px);
+  border-color: rgba(220, 0, 0, 0.3) !important;
+  background-color: rgba(220, 0, 0, 0.05) !important;
+}
+
+.btn-transition {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1) !important;
+}
+.btn-transition:active {
+  transform: scale(0.97);
+}
+
+/* THEME VARIABLES AND OVERRIDES */
+
+/* Base transitions for theme switching */
+body, nav, header, section, div, p, span, h1, h2, h3, h4, h5, h6 {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+[data-theme="light"] {
+  --color-onyx: #ffffff; /* Page background */
+  --color-dark: #f5f5f5;
+  --color-dark-surface: #ffffff; /* Card background */
+  --text-primary: #0a0a0a;
+  --text-secondary: rgba(0, 0, 0, 0.6);
+  --text-muted: rgba(0, 0, 0, 0.4);
+  --border-light: rgba(0, 0, 0, 0.1);
+  --bg-overlay: rgba(255, 255, 255, 0.85);
+  --bg-card: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme="dark"] {
+  --color-onyx: #000000;
+  --color-dark: #0a0a0a;
+  --color-dark-surface: #0d0d0d;
+  --text-primary: #ffffff;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --text-muted: rgba(255, 255, 255, 0.4);
+  --border-light: rgba(255, 255, 255, 0.07);
+  --bg-overlay: rgba(13, 13, 13, 0.75);
+  --bg-card: rgba(13, 13, 13, 0.8);
+}

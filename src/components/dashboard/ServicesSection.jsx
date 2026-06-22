@@ -25,7 +25,7 @@ export default function ServicesSection() {
       <div style={{
         fontFamily: "'JetBrains Mono', monospace",
         fontSize: '0.65rem',
-        color: 'rgba(255, 255, 255, 0.3)',
+        color: 'var(--text-muted, rgba(255, 255, 255, 0.3))',
         letterSpacing: '2px',
         textTransform: 'uppercase',
         marginBottom: 16
@@ -34,8 +34,8 @@ export default function ServicesSection() {
       </div>
 
       <div style={{
-        background: 'rgba(13, 13, 13, 0.8)',
-        border: '1px solid rgba(255, 255, 255, 0.05)',
+        background: 'var(--bg-card, rgba(13, 13, 13, 0.8))',
+        border: '1px solid var(--border-light, rgba(255, 255, 255, 0.05))',
         padding: '32px 40px',
       }}>
         <ol style={{
@@ -49,11 +49,15 @@ export default function ServicesSection() {
           {services.map((service, index) => (
             <li
               key={service.title}
+              className="anim-fade-in-up card-hover"
               style={{
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 12,
-                position: 'relative'
+                position: 'relative',
+                animationDelay: `${index * 0.15}s`,
+                padding: '16px 20px',
+                borderLeft: '2px solid transparent',
               }}
             >
               <div style={{
@@ -80,7 +84,7 @@ export default function ServicesSection() {
                 <h3 style={{
                   fontFamily: "'Space Grotesk', sans-serif",
                   fontSize: '1.1rem',
-                  color: '#ffffff',
+                  color: 'var(--text-primary, #ffffff)',
                   fontWeight: 500
                 }}>
                   {service.title}
@@ -89,7 +93,7 @@ export default function ServicesSection() {
               <p style={{
                 fontFamily: "'Inter', sans-serif",
                 fontSize: '0.85rem',
-                color: 'rgba(255, 255, 255, 0.5)',
+                color: 'var(--text-secondary, rgba(255, 255, 255, 0.5))',
                 lineHeight: 1.6,
                 paddingLeft: 36
               }}>
