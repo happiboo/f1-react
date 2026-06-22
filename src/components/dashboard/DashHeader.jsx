@@ -87,8 +87,8 @@ export default function DashHeader({ user }) {
         {/* Student Name & Reg Number */}
         <div style={{ textAlign: 'right', borderRight: '1px solid var(--border-light, rgba(255, 255, 255, 0.1))', paddingRight: 20 }}>
           <div style={{ color: 'var(--text-muted, rgba(255, 255, 255, 0.4))', fontSize: '0.6rem', textTransform: 'uppercase' }}>Operator</div>
-          <div style={{ color: 'var(--text-primary, #ffffff)', fontWeight: 600 }}>Kavin S</div>
-          <div style={{ color: '#DC0000', fontSize: '0.7rem' }}>REG2024001</div>
+          <div style={{ color: 'var(--text-primary, #ffffff)', fontWeight: 600 }}>Kavin A</div>
+          <div style={{ color: '#DC0000', fontSize: '0.7rem' }}>REG: 2303717620521025</div>
         </div>
 
         {/* User Role */}
